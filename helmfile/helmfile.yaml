@@ -1,0 +1,12 @@
+repositories:
+- name: stable
+  url: https://kubernetes-charts.storage.googleapis.com
+
+helmDefaults:
+  tillerless: true
+
+environments:
+  develop:
+  production:
+helmfiles:
+  - ./argocd/helmfile.yaml
