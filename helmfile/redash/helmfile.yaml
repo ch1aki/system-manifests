@@ -1,0 +1,19 @@
+repositories:
+- name: redash
+  url: https://getredash.github.io/contrib-helm-chart
+
+environments:
+  develop:
+    values:
+    - environment/development.yaml
+  production:
+    values:
+    - environment/production.yaml
+
+releases:
+  - name: redash
+    namespace: redash
+    chart: redash/redash
+    values:
+    - values.yaml
+

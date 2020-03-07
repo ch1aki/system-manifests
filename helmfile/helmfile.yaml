@@ -9,4 +9,4 @@ environments:
   develop:
   production:
 helmfiles:
-  - ./argocd/helmfile.yaml
+  - ./redash/helmfile.yaml
