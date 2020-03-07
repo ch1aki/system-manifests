@@ -1,0 +1,18 @@
+repositories:
+- name: argo
+  url: https://argoproj.github.io/argo-helm
+
+environments:
+  develop:
+    values:
+    - environment/development.yaml
+  production:
+    values:
+    - environment/production.yaml
+
+releases:
+  - name: argocd
+    namespace: argo
+    chart: argo/argo-cd
+    values:
+    - values.yaml
