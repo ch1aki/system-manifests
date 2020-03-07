@@ -1,0 +1,29 @@
+repoServer:
+  initContainers:
+  - name: download-tools
+    image: alpine:3.8
+    command: [sh, -c]
+    args:
+    - wget -qO /custom-tools/helmfile https://github.com/roboll/helmfile/releases/download/v0.102.0/helmfile_linux_amd64 &&
+      chmod +x /custom-tools/*
+    volumeMounts:
+    - mountPath: /custom-tools
+      name: custom-tools
+  volumes:
+    - name: custom-tools
+      emptyDir: {}
+  volumeMounts:
+    - name: custom-tools
+      mountPath: /usr/local/bin/helmfile
+      subPath: helmfile
+
+server:
+  config:
+    configManagementPlugins: |
+      - name: helmfile
+        init:
+          command: ["sh", "-c"]
+          args: ["helm init --client-only && helmfile repos"]
+        generate:
+          command: ["sh", "-c"]
+          args: ["helmfile template --skip-deps"]
